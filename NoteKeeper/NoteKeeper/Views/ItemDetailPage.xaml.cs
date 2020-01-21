@@ -5,6 +5,9 @@ using Xamarin.Forms.Xaml;
 
 using NoteKeeper.Models;
 using NoteKeeper.ViewModels;
+using System.Collections.Generic;
+using NoteKeeper.Services;
+using System.Threading.Tasks;
 
 namespace NoteKeeper.Views
 {
@@ -19,21 +22,25 @@ namespace NoteKeeper.Views
         {
             InitializeComponent();
 
-            BindingContext = this.viewModel = viewModel;
+            this.viewModel = viewModel;
+            BindingContext = this.viewModel;
         }
 
         public ItemDetailPage()
         {
             InitializeComponent();
 
-            var item = new Item
-            {
-                Text = "Item 1",
-                Description = "This is an item description."
-            };
-
-            viewModel = new ItemDetailViewModel(item);
+            viewModel = new ItemDetailViewModel();
             BindingContext = viewModel;
+        }
+
+        void Cancel_Clicked(System.Object sender, System.EventArgs e)
+        {
+            viewModel.NoteHeading = "XXXXXXXX";
+        }
+
+        void Save_Clicked(System.Object sender, System.EventArgs e)
+        {
         }
     }
 }
