@@ -12,20 +12,24 @@ namespace NoteKeeper.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
+        public ObservableCollection<Note> Notes { get; set; }
         public Command LoadItemsCommand { get; set; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Notes = new ObservableCollection<Note>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<ItemDetailPage, Note>(this, "SaveNote", async (sender, note) =>
             {
-                var newItem = item as Item;
-                Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
+                Notes.Add(note);
+                await NotesDataStore.AddItemAsync(note);
+            });
+
+            MessagingCenter.Subscribe<ItemDetailPage, Note>(this, "EditNote", async (sender, note) =>
+            {                
+                await NotesDataStore.UpdateItemAsync(note);
             });
         }
 
@@ -38,11 +42,11 @@ namespace NoteKeeper.ViewModels
 
             try
             {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
+                Notes.Clear();
+                var notes = await NotesDataStore.GetNotesAsync();
+                foreach (var note in notes)
                 {
-                    Items.Add(item);
+                    Notes.Add(note);
                 }
             }
             catch (Exception ex)

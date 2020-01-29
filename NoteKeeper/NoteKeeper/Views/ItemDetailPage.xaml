@@ -9,7 +9,7 @@
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
     </ContentPage.ToolbarItems>
     <StackLayout Spacing="20" Padding="15">
-        <Picker ItemsSource="{Binding courseList}" SelectedItem="{Binding note.Course}" Title="Note Couse" x:Name="NoteCourse" FontSize="Medium">
+        <Picker ItemsSource="{Binding courseList}" SelectedItem="{Binding Note.Course}" Title="Note Couse" x:Name="NoteCourse" FontSize="Medium">
             <!--<Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Math</x:String>
@@ -24,6 +24,6 @@
         
         <Entry Placeholder="Note Heading" x:Name="NoteHeading" FontSize="Medium" Text="{Binding NoteHeading}" />
         
-        <Editor Placeholder="Note Text" AutoSize="TextChanges" x:Name="NoteText" FontSize="Medium" Text="{Binding note.Text}"  />
+        <Editor Placeholder="Note Text" AutoSize="TextChanges" x:Name="NoteText" FontSize="Medium" Text="{Binding Note.Text}"  />
     </StackLayout>
 </ContentPage>

@@ -8,5 +8,6 @@ namespace NoteKeeper.Services
     public interface INotesDataStore : IDataStore<Note>
     {
         Task<List<String>> GetCourseAsync();
+        Task<IEnumerable<Note>> GetNotesAsync();
     }
 }

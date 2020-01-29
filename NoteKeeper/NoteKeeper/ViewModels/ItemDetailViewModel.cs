@@ -6,31 +6,28 @@ namespace NoteKeeper.ViewModels
 {
     public class ItemDetailViewModel : BaseViewModel
     {
-        public Note note { get; set; }
+        public Note Note { get; set; }
         public List<String> courseList { get; set; }
 
         public String NoteHeading
         {
             get
             {
-                return note.Heading;
+                return Note.Heading;
             }
             set
             {
-                note.Heading = value;
+                Note.Heading = value;
                 OnPropertyChanged();
             }
         }
 
-        public ItemDetailViewModel(Item item = null)
+        public ItemDetailViewModel(Note note = null)
         {
-            Title = item?.Text;
-            note = new Note
-            {
-                Heading = "Test Heading",
-                Text = "Text for Note in ViewModel"
-            };
+            Title = "Edit Note"; 
             InitializeCourseList();
+            Note = note ?? new Note();
+
         }
 
         public async void InitializeCourseList()

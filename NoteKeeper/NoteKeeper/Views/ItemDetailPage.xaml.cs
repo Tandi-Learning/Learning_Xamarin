@@ -17,6 +17,7 @@ namespace NoteKeeper.Views
     public partial class ItemDetailPage : ContentPage
     {
         ItemDetailViewModel viewModel;
+        Boolean isNewPage = true;
 
         public ItemDetailPage(ItemDetailViewModel viewModel)
         {
@@ -24,6 +25,7 @@ namespace NoteKeeper.Views
 
             this.viewModel = viewModel;
             BindingContext = this.viewModel;
+            isNewPage = false;
         }
 
         public ItemDetailPage()
@@ -36,11 +38,17 @@ namespace NoteKeeper.Views
 
         void Cancel_Clicked(System.Object sender, System.EventArgs e)
         {
-            viewModel.NoteHeading = "XXXXXXXX";
+            Navigation.PopModalAsync();
         }
 
         void Save_Clicked(System.Object sender, System.EventArgs e)
         {
+            if (isNewPage)
+                MessagingCenter.Send(this, "SaveNote", viewModel.Note);
+            else
+                MessagingCenter.Send(this, "EditNote", viewModel.Note);
+
+            Navigation.PopModalAsync();
         }
     }
 }
