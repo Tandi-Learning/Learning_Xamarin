@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Essentials;
 
 namespace Monday
 {
     public partial class MainPage : ContentPage
     {
-        private int COL_MAX = 6;
         private int numberOfWeeksAfterBirthStart = 50;
         string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "weeks.txt");
-
 
         public MainPage()
         {
@@ -26,69 +18,55 @@ namespace Monday
 
         private void InitializeCounter()
         {
-            for (int col = 0; col < COL_MAX; col++)
-            {
-                ImageGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-            }
-
             int weeksAfterBirth = GetWeeksAfterBirth();
-            (int rowCount, int colCount) = GetRowCol(weeksAfterBirth);
 
             NumberOfWeeks.Text = weeksAfterBirth.ToString();
 
-            for(var count = 0; count < weeksAfterBirth; count++)
+            for (var week = 0; week < weeksAfterBirth; week++)
             {
-                AddGridImage(count);
+                AddGridImage(week);
             }
         }
 
-        private void AddRow()
+        private void AddGridImage(int week)
         {
-            ImageGrid.RowDefinitions.Add(new RowDefinition { Height = 50 });
-        }
-
-        private void RemoveRow()
-        {
-
-        }
-
-        private void AddGridImage(int weeksAfterBirth)
-        {
-            (int row, int col) = GetRowCol(weeksAfterBirth);
-
-            if (col == 0)
-                AddRow();
-
             Image imageButterfly = new Image
             {
-                Source = "butterfly.png",
-                //WidthRequest = 60,
+                Source = "butterfly.png"
             };
 
             Label label = new Label
             {
                 FontAttributes = FontAttributes.Bold,
                 FontSize = 18,
-                Text = (weeksAfterBirth + 1).ToString(),
+                Text = (week + 1).ToString(),
                 TextColor = Color.White,
                 VerticalTextAlignment = TextAlignment.Start,
                 HorizontalTextAlignment = TextAlignment.Start,
             };
-            Grid gridImage = new Grid();
+            Grid gridImage = new Grid
+            {
+                WidthRequest = GetImageWidth(),
+                HeightRequest = GetImageWidth(),
+                Margin = GetImageWidth() / 17,
+            };
             gridImage.Children.Add(imageButterfly);
             gridImage.Children.Add(label);
 
-            ImageGrid.Children.Add(gridImage, col, row);
+            ImageFlex.Children.Add(gridImage);
         }
 
         private void RemoveGridImage(int weeksAfterBirth)
         {
-            (int row, int col) = GetRowCol(weeksAfterBirth);
+            var count = ImageFlex.Children.Count;
+            if (count > 0)
+                ImageFlex.Children.RemoveAt(count - 1);
+        }
 
-            ImageGrid.Children.Remove(ImageGrid.Children.Last());
-
-            if (col == 1)
-                ImageGrid.RowDefinitions.RemoveAt(ImageGrid.RowDefinitions.Count - 1);
+        private double GetImageWidth()
+        {
+            var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+            return (mainDisplayInfo.Width / mainDisplayInfo.Density) / 7;
         }
 
         private int GetWeeksAfterBirth()
@@ -106,16 +84,6 @@ namespace Monday
             bool parseOK = Int32.TryParse(result, out int parseResult);
 
             return parseOK ? parseResult : 0;
-        }
-
-        private (int, int) GetRowCol(int weeksAfterBirth)
-        {
-            if (weeksAfterBirth == 0) return (0, 0);
-
-            int row = weeksAfterBirth / COL_MAX;
-            int col = weeksAfterBirth % COL_MAX;
-
-            return (row, col);
         }
 
         void Increment_Clicked(System.Object sender, System.EventArgs e)
