@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Scarly"
+             x:Class="Scarly.MainPage">
+
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <Grid.BindingContext>
+            <viewmodel:MainPageViewModel />
+        </Grid.BindingContext>
+        <Frame Grid.Row="0" BackgroundColor="#2196F3" Padding="0" CornerRadius="0">
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                <Label Text="Scarlet: " HorizontalTextAlignment="Center" TextColor="Black" FontSize="22" />
+                <Label x:Name="TimeElapsed" HorizontalTextAlignment="Center" TextColor="White" FontSize="22" />
+            </StackLayout>
+        </Frame>
+        <ScrollView x:Name="ImageScrollView" Grid.Row="1" BackgroundColor="#09aded" Padding="5">
+            <!--<Grid x:Name="ImageGrid" />-->
+            <FlexLayout
+                x:Name="ImageFlex"
+                Direction="Row"
+                Wrap="Wrap"
+                AlignContent="Start"
+            />
+        </ScrollView>
+        <Frame Grid.Row="2" BackgroundColor="#2196F3" Padding="0" CornerRadius="0">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button CornerRadius="5" BackgroundColor="Yellow" VerticalOptions="Center" TextColor="Black" FontSize="40" WidthRequest="70" Text="-" Clicked="Decrement_Clicked"></Button>
+                <Button CornerRadius="5" BackgroundColor="Yellow" VerticalOptions="Center" TextColor="Black" FontSize="40" WidthRequest="70" Text="+" Clicked="Increment_Clicked"></Button>
+            </StackLayout>
+        </Frame>
+    </Grid>
+
+</ContentPage>
