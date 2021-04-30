@@ -25,17 +25,9 @@ namespace Scarly
 
         private void InitializeCounter()
         {
-            var timeElapsed = DateTime.Now - anniversaryDate;
-
-            var totalDays = timeElapsed.TotalDays;
-            var totalYears = Math.Truncate(totalDays / 365);
-            var totalMonths = Math.Truncate((totalDays % 365) / 30);
-            var remainingDays = Math.Truncate((totalDays % 365) % 30);
-
             int monthCounter = GetMonthAfterBirth();
 
             var now = DateTime.Now;
-
             LocalDate birthDate = new LocalDate(2019, 8, 12);
             LocalDate today = new LocalDate(now.Year, now.Month, now.Day);
             Period age = Period.Between(birthDate, today);
@@ -98,7 +90,7 @@ namespace Scarly
         private double GetImageWidth()
         {
             var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
-            return (mainDisplayInfo.Width / mainDisplayInfo.Density) / 7;
+            return (mainDisplayInfo.Width / mainDisplayInfo.Density) / 6;
         }
 
         private int GetMonthAfterBirth()
