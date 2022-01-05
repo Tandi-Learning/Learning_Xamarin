@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:view="clr-namespace:ExpensesApp.Views"
+            x:Class="ExpensesApp.MainPage">
+    <view:CategoriesPage IconImageSource="category.png" Title="Categories"></view:CategoriesPage>
+    <view:ExpensesPage IconImageSource="expenses.png" Title="Expenses"></view:ExpensesPage>
+</TabbedPage>
