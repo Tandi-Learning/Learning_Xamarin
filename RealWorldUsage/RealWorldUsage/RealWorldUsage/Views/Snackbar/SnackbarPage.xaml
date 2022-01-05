@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:snackbar="clr-namespace:RealWorldUsage.Views.Snackbar"
+             x:Class="RealWorldUsage.Views.Snackbar.SnackbarPage">
+    <ContentPage.Content>
+        <Grid x:Name="LayoutRoot">
+            <StackLayout Orientation="Vertical">
+                <Label Text="Snackbar Page"
+                    VerticalOptions="Start" 
+                    HorizontalOptions="CenterAndExpand" />
+                <StackLayout Orientation="Horizontal">
+                    <Button 
+                        Text="Check Network"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        Clicked="OnCheckNetworkClicked" />
+                    <Button 
+                        Text="Check Battery"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        Clicked="OnCheckBatteryClicked" />
+                </StackLayout>
+            </StackLayout>
+            <snackbar:SnackBarView x:Name="SnackBarView" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
